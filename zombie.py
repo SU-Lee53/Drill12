@@ -59,12 +59,12 @@ class Zombie:
         pass
 
     def get_bb(self):
-        return self.x- self.size / 2, self.y - self.size / 2, self.x + self.size / 2, self.y + self.size / 2
+        return self.x - self.size / 3, self.y - self.size / 2, self.x + self.size / 3, self.y + self.size / 2
 
     def handle_collision(self, group, other):
         if group == 'zombie:ball':
             self.size /= 2
-            self.y /= 2
+            self.y /= 1.5
             if self.size <= 50:
                 game_world.remove_object(self)
 

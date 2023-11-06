@@ -35,7 +35,14 @@ def init():
 
     # fill here
     # 축구공 바닥에 뿌리기
+    global balls
+    balls = [Ball(random.randint(100, 1600), 60, 0.0) for _ in range(30)]
+    game_world.add_objects(balls, 1)
+
     # 충돌 상황을 등록... boy와 ball들의 충돌 상황을 등록
+    game_world.add_collision_pair('boy:ball', boy, None)
+    for ball in balls:
+        game_world.add_collision_pair('boy:ball', None, ball)
 
     # 좀비 5마리 추가
     zombies = [Zombie() for _ in range(5)]
@@ -45,6 +52,12 @@ def init():
     game_world.add_collision_pair('zombie:ball', None, None)
     for z in zombies:
         game_world.add_collision_pair('zombie:ball', z, None)
+
+    # 좀비와 소년의 충돌상황 등록
+    game_world.add_collision_pair('boy:zombie', None, None)
+    game_world.add_collision_pair('boy:zombie', boy, None)
+    for z in zombies:
+        game_world.add_collision_pair('boy:zombie', None, z)
 
 def finish():
     game_world.clear()
